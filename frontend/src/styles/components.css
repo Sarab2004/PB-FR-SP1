@@ -1,0 +1,110 @@
+﻿.btn-brand {
+  background: var(--brand-1);
+  color: #fff;
+  border: none;
+  border-radius: var(--btn-radius);
+  padding: 0.7rem 1.1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.btn-brand:hover:not(:disabled) {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+
+.btn-brand:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  transform: none;
+}
+
+.btn-outline {
+  background: #fff;
+  color: var(--gray-900);
+  border: 1px solid var(--gray-900);
+  border-radius: var(--btn-radius);
+  padding: 0.7rem 1.1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: rgba(73, 74, 65, 0.08);
+  transform: translateY(-1px);
+}
+
+.btn-outline:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  transform: none;
+}
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--accent-2);
+  border: none;
+  padding: 0.4rem 0.6rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-tertiary:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.btn-tertiary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.badge-submitted {
+  background: var(--tone-1);
+  color: var(--gray-900);
+}
+
+.badge-approved {
+  border: 1px solid var(--accent-2);
+  color: var(--gray-900);
+}
+
+.badge-rejected {
+  border: 1px solid rgba(73, 74, 65, 0.45);
+  color: var(--gray-700);
+}
+
+.badge-converted {
+  border: 1px solid var(--accent-1);
+  color: var(--gray-900);
+}
+
+.hint-muted {
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  opacity: 0.85;
+}

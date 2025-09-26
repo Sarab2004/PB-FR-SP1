@@ -1,0 +1,214 @@
+﻿.form {
+  display: grid;
+  gap: 24px;
+}
+
+.section {
+  display: grid;
+  gap: 16px;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.input,
+.textarea,
+.select {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ltrInput {
+  direction: ltr;
+  unicode-bidi: plaintext;
+}
+
+.inputError {
+  border-color: rgba(255, 115, 28, 0.65) !important;
+  box-shadow: 0 0 0 3px rgba(255, 115, 28, 0.18);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.2);
+}
+
+.hintMuted {
+  font-size: 12px;
+  color: var(--gray-700);
+  opacity: 0.85;
+}
+
+.errorText {
+  font-size: 12px;
+  color: #c0382b;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.itemHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--gray-900);
+}
+
+.itemList {
+  display: grid;
+  gap: 16px;
+}
+
+.itemCard {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: #fff;
+  display: grid;
+  gap: 12px;
+}
+
+.itemFields {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.itemActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.removeButton {
+  background: transparent;
+  border: 1px solid rgba(192, 56, 43, 0.35);
+  border-radius: 12px;
+  padding: 8px 14px;
+  color: #c0382b;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.removeButton:hover:not(:disabled) {
+  background: rgba(192, 56, 43, 0.12);
+  transform: translateY(-1px);
+}
+
+.addButton {
+  align-self: center;
+  border: 1px dashed var(--accent-2);
+  color: var(--accent-2);
+  background: rgba(255, 154, 35, 0.08);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.addButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(255, 154, 35, 0.14);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
+.error {
+  border: 1px solid rgba(255, 115, 28, 0.3);
+  background: rgba(255, 214, 158, 0.35);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  color: var(--gray-900);
+  font-size: 14px;
+}
+
+.success {
+  border: 1px solid rgba(73, 181, 116, 0.24);
+  background: rgba(73, 181, 116, 0.12);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  color: var(--gray-900);
+  font-size: 14px;
+  display: grid;
+  gap: 6px;
+}
+
+.badgeSubmitted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--tone-1);
+  color: var(--gray-900);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.readOnlyHint {
+  font-size: 13px;
+  color: var(--gray-700);
+}
+
+.datePicker {
+  width: 100%;
+}
+
+.dateInput {
+  width: 100%;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  direction: rtl;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.2);
+}
+
+.dateInput:disabled {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  cursor: not-allowed;
+}
+.removeButton:disabled,
+.addButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}

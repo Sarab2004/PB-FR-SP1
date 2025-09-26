@@ -1,0 +1,208 @@
+﻿.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 16px;
+}
+
+.card {
+  width: min(520px, 100%);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stepper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.stepActive {
+  color: var(--gray-900);
+}
+
+.stepCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-200);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.stepCircleActive {
+  background: var(--gray-900);
+  color: #fff;
+  border-color: var(--gray-900);
+}
+
+.heading h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.heading p {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 15px;
+}
+
+.error {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 115, 28, 0.3);
+  background: rgba(255, 214, 158, 0.35);
+  color: var(--gray-900);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+}
+
+.roles {
+  display: grid;
+  gap: 16px;
+}
+
+.roleCard {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: #fff;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.roleCard:hover {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 2px rgba(255, 154, 35, 0.15);
+}
+
+.roleCardActive {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 2px rgba(255, 154, 35, 0.25);
+}
+
+.roleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.roleTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.roleHint {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 14px;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(73, 74, 65, 0.08);
+  color: var(--gray-900);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.input {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  padding: 12px 14px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.2);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
+
+.supportHint {
+  font-size: 13px;
+  color: var(--gray-700);
+}
+
+.testBox {
+  font-size: 13px;
+  background: rgba(73, 74, 65, 0.04);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  direction: ltr;
+  text-align: left;
+}
+
+
+.logoBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 620px) {
+  .roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+
+
+
+
+
+
+
+}

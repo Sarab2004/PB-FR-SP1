@@ -1,0 +1,229 @@
+﻿.wrapper {
+  display: grid;
+  gap: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.controls h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.filter {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  background: #fff;
+  min-width: 160px;
+}
+
+.filter:focus {
+  outline: none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.2);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.table thead {
+  background: rgba(73, 74, 65, 0.06);
+  color: var(--gray-900);
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  padding: 14px 18px;
+  text-align: right;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.statusSUBMITTED {
+  background: var(--tone-1);
+  color: var(--gray-900);
+}
+
+.statusAPPROVED {
+  border: 1px solid var(--accent-2);
+  background: #fff;
+  color: var(--gray-900);
+}
+
+.statusREJECTED {
+  border: 1px solid rgba(121, 122, 112, 0.45);
+  background: #fff;
+  color: var(--gray-700);
+}
+
+.statusCONVERTED {
+  border: 1px solid var(--accent-1);
+  background: rgba(255, 173, 101, 0.18);
+  color: var(--gray-900);
+}
+
+.actionGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actionGroup .btn-brand,
+.actionGroup .btn-outline {
+  min-width: 110px;
+  justify-content: center;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: var(--gray-900);
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+.actionGroup .btn-outline .spinner {
+  border: 2px solid rgba(73, 74, 65, 0.25);
+  border-top-color: var(--gray-900);
+}
+
+.actionGroup .btn-brand .spinner {
+  border-color: rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+}
+
+.dangerButton {
+  border-color: rgba(192, 56, 43, 0.4) !important;
+  color: #c0382b !important;
+}
+
+.dangerButton:hover:not(:disabled) {
+  background: rgba(192, 56, 43, 0.12);
+}
+
+.skeletonRow {
+  position: relative;
+  height: 56px;
+  overflow: hidden;
+  background: rgba(73, 74, 65, 0.04);
+}
+
+.skeletonRow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  animation: shimmer 1.3s infinite;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--gray-700);
+  border: 1px dashed var(--gray-200);
+  border-radius: var(--radius-lg);
+  background: rgba(73, 74, 65, 0.04);
+}
+
+.emptyState strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--gray-900);
+}
+
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 56px rgba(73, 74, 65, 0.18);
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 70;
+}
+
+.toast button {
+  border: none;
+  background: transparent;
+  color: var(--accent-2);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toastsuccess {
+  border: 1px solid rgba(73, 181, 116, 0.24);
+}
+
+.toasterror {
+  border: 1px solid rgba(192, 56, 43, 0.3);
+}
+
+.userCell {
+  font-family: "Courier New", monospace;
+  direction: ltr;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 960px) {
+  .actionGroup {
+    gap: 6px;
+  }
+
+  .toast {
+    left: 16px;
+    right: 16px;
+  }
+}

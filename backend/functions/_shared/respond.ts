@@ -1,4 +1,4 @@
-// پاسخ JSON استاندارد برای همه فانکشن‌ها
+// پاسخ JSON استاندارد برای تمام فانکشن‌ها
 export const json = (status: number, body: unknown, extra: Record<string, string> = {}) =>
   new Response(JSON.stringify(body), {
     status,

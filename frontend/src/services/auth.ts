@@ -1,20 +1,14 @@
-// src/services/auth.ts
-import { api } from "./http";
+import type { Role, AuthSession, AuthUser } from "../types/auth";
+import { api } from "./api";
 
-export type Role = "REQUESTER" | "MANAGER";
-
-type LoginBody = {
-    role: Role;
-    identifier: string;
-    passcode: string;
+type LoginPayload = {
+  role: Role;
+  identifier: string;
+  passcode: string;
 };
 
 export async function login(role: Role, identifier: string, passcode: string) {
-    return api<{
-        accessToken: string;
-        user: { id: string; role: Role; email?: string | null };
-    }>("/auth", {
-        method: "POST",
-        body: JSON.stringify({ role, identifier, passcode } satisfies LoginBody),
-    });
+  return api.authLogin({ role, identifier, passcode } satisfies LoginPayload);
 }
+
+export type { Role, AuthSession, AuthUser };

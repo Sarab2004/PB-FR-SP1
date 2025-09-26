@@ -1,0 +1,243 @@
+﻿.layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #fff;
+  border-left: 1px solid var(--gray-100);
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navItem {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  color: var(--gray-700);
+  font-weight: 500;
+  background: transparent;
+  border-right: 3px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.navItem:hover {
+  background: rgba(73, 74, 65, 0.08);
+  color: var(--gray-900);
+}
+
+.navItemActive {
+  background: var(--tone-1);
+  color: var(--gray-900);
+  border-right-color: var(--accent-2);
+}
+
+.contentArea {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  box-shadow: 0 12px 24px rgba(73, 74, 65, 0.08);
+  min-height: 64px;
+}
+
+.headerLogo {
+  display: flex;
+  align-items: center;
+}
+
+.headerMain {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.headerMain h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.headerMain p {
+  margin: 0;
+  color: var(--gray-700);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+}
+
+.profileEmail {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.profileRole {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(255, 154, 35, 0.16);
+  color: var(--gray-900);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.profileActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profileActions .btn-tertiary {
+  padding-inline: 0.5rem;
+}
+
+.profileActions .btn-outline {
+  min-width: 110px;
+}
+
+.copyStatus {
+  font-size: 0.75rem;
+  color: var(--gray-700);
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 4px;
+}
+
+.tabButton {
+  background: transparent;
+  border: none;
+  padding: 12px 18px;
+  color: var(--gray-700);
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.tabButton:hover {
+  color: var(--gray-900);
+}
+
+.tabButtonActive {
+  color: var(--gray-900);
+  border-bottom-color: var(--accent-2);
+  background: rgba(255, 154, 35, 0.12);
+}
+
+.content {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 28px;
+  min-height: 320px;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-left: none;
+    border-bottom: 1px solid var(--gray-100);
+    overflow-x: auto;
+  }
+
+  .nav {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .navItem {
+    border-radius: 999px;
+    border-right: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .navItemActive {
+    border-bottom-color: var(--accent-2);
+  }
+
+  .contentArea {
+    padding: 24px 16px 48px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .headerMain {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .profile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .profileActions {
+    width: 100%;
+  }
+
+  .profileActions .btn-outline {
+    width: 100%;
+  }
+}

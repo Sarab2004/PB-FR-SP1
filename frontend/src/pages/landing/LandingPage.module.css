@@ -1,0 +1,106 @@
+﻿.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px clamp(16px, 5vw, 48px);
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(24px, 8vw, 64px);
+}
+
+.heroTitle {
+  font-size: clamp(28px, 4vw, 40px);
+  margin: 0;
+  color: var(--gray-900);
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 1.05rem;
+}
+
+.roles {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+.roleCard {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: 0 10px 26px rgba(73, 74, 65, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roleLabel {
+  font-weight: 700;
+  color: var(--gray-900);
+  font-size: 18px;
+}
+
+.roleHint {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 14px;
+}
+
+.roleActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.roleActions a {
+  text-decoration: none;
+}
+
+.primaryCta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.supportLink {
+  color: var(--accent-2);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    justify-content: center;
+  }
+
+  .hero {
+    align-items: stretch;
+  }
+}

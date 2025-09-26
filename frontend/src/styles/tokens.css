@@ -1,0 +1,22 @@
+﻿:root {
+  --brand-1: #ff731c;
+  --accent-2: #ff9a23;
+  --accent-1: #ffad65;
+  --tone-1: #ffd59e;
+  --paper: #f7f1dd;
+  --gray-900: #494a41;
+  --gray-800: #5f6057;
+  --gray-700: #797a70;
+  --gray-600: #8a8c82;
+  --gray-500: #9e9f96;
+  --gray-400: #b1b3aa;
+  --gray-300: #c6c7c1;
+  --gray-200: #d6d7d1;
+  --gray-100: #e9eae4;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --btn-radius: 16px;
+  --shadow-soft: 0 18px 36px rgba(73, 74, 65, 0.08);
+}
+

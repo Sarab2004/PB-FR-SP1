@@ -1,47 +1,40 @@
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+﻿import { useState } from "react";
+import { DashboardLayout } from "../../components/layout/DashboardLayout";
+import { CreateWRequestForm } from "./requester/CreateWRequestForm";
+import { MyRequests } from "./requester/MyRequests";
+
+type RequesterTab = "create" | "list";
+
+const sidebarItems = [{ label: "داشبورد درخواست‌کننده", to: "/dashboard/requester" }];
+
+const tabs = [
+  { key: "create", label: "فرم درخواست کالا" },
+  { key: "list", label: "درخواست‌های من" },
+] as const;
 
 export default function RequesterDashboard() {
-    const [list, setList] = useState<any[]>([]);
-    const [msg, setMsg] = useState("");
+  const [activeTab, setActiveTab] = useState<RequesterTab>("create");
+  const [refreshKey, setRefreshKey] = useState(0);
 
-    async function load() {
-        setMsg("");
-        try {
-            const res = await api.listWR();
-            setList(res.items ?? []);
-        } catch (e: any) {
-            setMsg(e.message || "خطا در دریافت لیست");
-        }
-    }
+  function handleSuccess() {
+    setRefreshKey((prev) => prev + 1);
+    setActiveTab("list");
+  }
 
-    async function createSample() {
-        try {
-            await api.createWR({
-                title: "A4 Paper (from UI)",
-                items: [{ sku: "A4", name: "Paper", qty: 5, unit: "pack" }],
-                priority: "HIGH",
-            });
-            await load();
-        } catch (e: any) {
-            setMsg(e.message || "خطا در ایجاد");
-        }
-    }
-
-    useEffect(() => { load(); }, []);
-
-    return (
-        <div style={{ padding: 20, direction: "rtl", fontFamily: "sans-serif" }}>
-            <h2>داشبورد درخواست‌کننده</h2>
-            <button onClick={createSample}>ایجاد WR نمونه</button>
-            {msg && <p style={{ color: "crimson" }}>{msg}</p>}
-            <ul>
-                {list.map((x: any) => (
-                    <li key={x.id}>
-                        <b>{x.title}</b> — وضعیت: {x.status} — تاریخ: {new Date(x.created_at).toLocaleString()}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <DashboardLayout
+      title="داشبورد درخواست‌کننده"
+      subtitle="در این بخش می‌توانید فرم درخواست کالا از انبار را تکمیل کنید و وضعیت درخواست‌های ثبت‌شده را دنبال نمایید."
+      sidebarItems={sidebarItems}
+      tabs={tabs}
+      currentTab={activeTab}
+      onTabChange={(key) => setActiveTab(key as RequesterTab)}
+    >
+      {activeTab === "create" ? (
+        <CreateWRequestForm onSuccess={handleSuccess} />
+      ) : (
+        <MyRequests refreshKey={refreshKey} />
+      )}
+    </DashboardLayout>
+  );
 }
