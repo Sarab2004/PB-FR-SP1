@@ -1,0 +1,295 @@
+﻿.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(73, 74, 65, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  z-index: 90;
+}
+
+.dialog {
+  width: min(960px, 100%);
+  max-height: calc(100vh - 48px);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 32px 64px rgba(73, 74, 65, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialogInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* برای فعال‌شدن اسکرول داخلی */
+  min-height: 0;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.titleBlock {
+  display: grid;
+  gap: 8px;
+}
+
+.titleBlock h2 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--gray-900);
+}
+
+.code {
+  font-size: 0.85rem;
+  color: var(--gray-700);
+  word-break: break-all;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.statusDRAFT {
+  background: rgba(73, 74, 65, 0.1);
+  color: var(--gray-900);
+}
+
+.statusSUBMITTED {
+  background: var(--tone-1);
+  color: var(--gray-900);
+}
+
+.statusAPPROVED {
+  border: 1px solid var(--accent-2);
+  background: #fff;
+  color: var(--gray-900);
+}
+
+.statusREJECTED {
+  border: 1px solid rgba(121, 122, 112, 0.45);
+  background: #fff;
+  color: var(--gray-700);
+}
+
+.body {
+  padding: 24px 28px;
+  /* اسکرول داخلی بدنه */
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+  display: grid;
+  gap: 32px;
+  background: #fff;
+}
+
+.loading {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--gray-700);
+}
+
+.metaGrid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.field input,
+.field select {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  background: #fff;
+  font-family: inherit;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.2);
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  opacity: 0.85;
+}
+
+.readonlyField {
+  border: 1px dashed var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--gray-700);
+  background: rgba(73, 74, 65, 0.04);
+}
+
+.itemsSection {
+  display: grid;
+  gap: 16px;
+}
+
+.itemsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemsHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--gray-900);
+}
+
+.itemsGrid {
+  display: grid;
+  gap: 16px;
+}
+
+.itemCard {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  display: grid;
+  gap: 16px;
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(73, 74, 65, 0.06);
+}
+
+.itemField {
+  display: grid;
+  gap: 6px;
+}
+
+.itemField input {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  background: #fff;
+}
+
+.itemField input:focus {
+  outline: none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.18);
+}
+
+.ltrInput {
+  direction: ltr;
+  unicode-bidi: plaintext;
+}
+
+.itemActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.removeButton {
+  border: 1px solid rgba(192, 56, 43, 0.35);
+  background: transparent;
+  color: #c0382b;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-weight: 600;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.removeButton:hover:not(:disabled) {
+  background: rgba(192, 56, 43, 0.08);
+  transform: translateY(-1px);
+}
+
+.removeButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  padding: 20px 28px;
+  border-top: 1px solid var(--gray-100);
+  background: #fff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.inputError {
+  border-color: rgba(192, 56, 43, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(192, 56, 43, 0.12) !important;
+}
+
+.errorText {
+  color: #c0382b;
+  font-size: 0.82rem;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (max-width: 720px) {
+  .backdrop {
+    padding: 16px;
+  }
+
+  .dialog {
+    max-height: calc(100vh - 16px);
+  }
+
+  .header,
+  .body,
+  .footer {
+    padding: 20px;
+  }
+}

@@ -1,4 +1,4 @@
-﻿import { api } from "./api";
+import { api } from "./api";
 import type {
   WarehouseRequestCreate,
   WarehouseRequest,
@@ -17,7 +17,7 @@ function normalizeWarehouseRequest(request: WarehouseRequestApi): WarehouseReque
   } as WarehouseRequest;
 }
 
-function buildQuery(params?: Record<string, string | undefined>) {
+function buildQuery(params?: Record<string, string | number | undefined>) {
   if (!params) return "";
   const search = Object.entries(params)
     .filter(([, value]) => value !== undefined && value !== "")
@@ -25,6 +25,10 @@ function buildQuery(params?: Record<string, string | undefined>) {
     .join("&");
   return search ? `?${search}` : "";
 }
+
+export type ManagerRequestsListParams = {
+  status?: WRequestStatus | "";
+};
 
 export const requests = {
   async create(payload: WarehouseRequestCreate) {
@@ -36,8 +40,10 @@ export const requests = {
     return (data?.items ?? []).map(normalizeWarehouseRequest);
   },
 
-  async listAllForManager(params?: { status?: WRequestStatus }) {
-    const query = buildQuery({ status: params?.status });
+  async listAllForManager(params?: ManagerRequestsListParams) {
+    const query = buildQuery({
+      status: params?.status,
+    });
     const data = await api.get<{ items: WarehouseRequestApi[] }>(`/requests${query}`);
     return (data?.items ?? []).map(normalizeWarehouseRequest);
   },
@@ -55,6 +61,7 @@ export const requests = {
       `/requests?action=convert&id=${encodeURIComponent(id)}`
     );
   },
+
 };
 
 export type { WarehouseRequestCreate, WarehouseRequest, WRequestStatus };

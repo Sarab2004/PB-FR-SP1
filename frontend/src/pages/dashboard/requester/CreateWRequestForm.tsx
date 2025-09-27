@@ -161,6 +161,30 @@ export function CreateWRequestForm({ onSuccess }: CreateWRequestFormProps) {
     return new DateObject({ date: input as Date | string | number, calendar: persian, locale: persian_fa });
   }
 
+  const canSubmit = useMemo(() => {
+    if (locked) return false;
+    const title = form.title.trim();
+    if (title.length < 8 || title.length > 120) return false;
+    if (!items.length) return false;
+    return items.every((item) => {
+      const sku = item.sku.trim();
+      const name = item.name.trim();
+      const unit = item.unit.trim();
+      const qty = Number(item.qty);
+      return (
+        sku.length > 0 &&
+        sku.length <= 40 &&
+        name.length > 0 &&
+        name.length <= 120 &&
+        unit.length > 0 &&
+        unit.length <= 16 &&
+        Number.isFinite(qty) &&
+        qty >= 1 &&
+        qty <= 99999
+      );
+    });
+  }, [form.title, items, locked]);
+
   const validation = useMemo(() => validateForm(form, items), [form, items]);
 
   function updateForm<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -412,7 +436,7 @@ export function CreateWRequestForm({ onSuccess }: CreateWRequestFormProps) {
             const unitErrorId = `wr-item-${index}-unit-error`;
 
             return (
-              <div key={index} className={styles.itemCard}>
+              <div key={index} className={`${styles.itemCard} card-accent`.trim()}>
                 <div className={styles.itemFields}>
                   <div className={styles.field}>
                     <label className={styles.label} htmlFor={`wr-item-${index}-sku`}>
@@ -534,9 +558,9 @@ export function CreateWRequestForm({ onSuccess }: CreateWRequestFormProps) {
         </div>
       </div>
 
-      {apiError && <div className={styles.error}>{apiError}</div>}
+      {apiError && <div className={`${styles.error} card-accent`.trim()}>{apiError}</div>}
       {successMessage && (
-        <div className={styles.success}>
+        <div className={`${styles.success} card-accent`.trim()}>
           <span>{successMessage}</span>
           <span className={styles.badgeSubmitted}>SUBMITTED</span>
           <span className={styles.readOnlyHint}>
@@ -549,7 +573,7 @@ export function CreateWRequestForm({ onSuccess }: CreateWRequestFormProps) {
         <button
           type="submit"
           className="btn-brand"
-          disabled={locked || loading || !validation.isValid}
+          disabled={locked || loading || !canSubmit}
         >
           {loading ? "در حال ارسال..." : locked ? "ثبت شده" : "ارسال درخواست"}
         </button>

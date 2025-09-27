@@ -1,0 +1,3 @@
+PLAN STEP 1: Strip archive-related UI and service calls from manager views and services.
+PLAN STEP 2: Replace logo asset and adjust logo component sizing.
+PLAN STEP 3: Clean up styling (badge removal, action spacing) and rerun build to verify.

@@ -108,3 +108,50 @@ button:focus-visible {
   color: var(--gray-700);
   opacity: 0.85;
 }
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  display: inline-block;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+.btn-outline .btn-spinner {
+  border-color: rgba(73, 74, 65, 0.25);
+  border-top-color: var(--gray-900);
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.card-accent {
+  background: color-mix(in srgb, var(--brand-1) 10%, #fff);
+  border: 1px solid color-mix(in srgb, var(--brand-1) 35%, #fff);
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(255, 115, 28, 0.15);
+}
+
+.sidebar-cta {
+  background: var(--brand-1);
+  color: #fff;
+  border-radius: 18px;
+  padding: 0.9rem 1.2rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.sidebar-cta:hover {
+  filter: brightness(0.94);
+  transform: translateY(-1px);
+}
+

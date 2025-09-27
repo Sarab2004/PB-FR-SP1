@@ -1,22 +1,35 @@
-﻿.wrapper {
+.wrapper {
   display: grid;
-  gap: 20px;
+  gap: 24px;
 }
 
 .controls {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 16px;
-  align-items: center;
   flex-wrap: wrap;
 }
 
-.controls h2 {
-  margin: 0;
-  font-size: 20px;
+.headingBlock h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
 }
 
-.filter {
+.headingBlock p {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 0.95rem;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filterSelect {
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-md);
   padding: 10px 14px;
@@ -24,19 +37,22 @@
   min-width: 160px;
 }
 
-.filter:focus {
+.filterSelect:focus {
   outline: none;
   border-color: var(--accent-2);
   box-shadow: 0 0 0 3px rgba(255, 154, 35, 0.2);
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
+.tableWrapper {
   background: #fff;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .table thead {
@@ -50,11 +66,20 @@
   padding: 14px 18px;
   text-align: right;
   border-bottom: 1px solid var(--gray-100);
+  vertical-align: middle;
 }
 
 .table tbody tr:last-child td {
   border-bottom: none;
 }
+
+.titleCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 
 .badge {
   display: inline-flex;
@@ -91,7 +116,7 @@
 
 .actionGroup {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -142,28 +167,19 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.05) 0%,
-    rgba(0, 0, 0, 0.12) 50%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.05) 100%);
   animation: shimmer 1.3s infinite;
 }
 
 .emptyState {
+  padding: 48px 24px;
   text-align: center;
-  padding: 60px 24px;
   color: var(--gray-700);
-  border: 1px dashed var(--gray-200);
-  border-radius: var(--radius-lg);
-  background: rgba(73, 74, 65, 0.04);
 }
 
-.emptyState strong {
-  display: block;
-  font-size: 18px;
-  margin-bottom: 10px;
+.emptyState h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
   color: var(--gray-900);
 }
 
@@ -218,6 +234,16 @@
 }
 
 @media (max-width: 960px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .actionGroup {
     gap: 6px;
   }

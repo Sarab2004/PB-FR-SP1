@@ -1,4 +1,4 @@
-﻿import { api } from "./api";
+import { api } from "./api";
 import type { PurchaseRequest, PurchaseStatus, PurchaseItem } from "../types/purchases";
 
 type PurchaseRequestApi = Omit<PurchaseRequest, "items"> & {
@@ -12,7 +12,7 @@ function normalizePurchase(pr: PurchaseRequestApi): PurchaseRequest {
   } as PurchaseRequest;
 }
 
-function buildQuery(params?: Record<string, string | undefined>) {
+function buildQuery(params?: Record<string, string | number | undefined>) {
   if (!params) return "";
   const search = Object.entries(params)
     .filter(([, value]) => value !== undefined && value !== "")
@@ -30,9 +30,15 @@ export type PurchaseUpdatePayload = {
   status?: PurchaseStatus;
 };
 
+export type PurchaseListParams = {
+  status?: PurchaseStatus | "";
+};
+
 export const purchases = {
-  async list(params?: { status?: PurchaseStatus }) {
-    const query = buildQuery({ status: params?.status });
+  async list(params?: PurchaseListParams) {
+    const query = buildQuery({
+      status: params?.status,
+    });
     const data = await api.get<{ items: PurchaseRequestApi[] }>(`/purchases${query}`);
     return (data?.items ?? []).map(normalizePurchase);
   },
@@ -43,10 +49,8 @@ export const purchases = {
   },
 
   async patch(id: string, payload: PurchaseUpdatePayload) {
-    const data = await api.patch<PurchaseRequestApi>(
-      `/purchases?id=${encodeURIComponent(id)}`,
-      payload
-    );
-    return normalizePurchase(data);
+    await api.patch<{ ok: boolean; id: string }>(`/purchases?id=${encodeURIComponent(id)}`, payload);
+    return purchases.get(id);
   },
+
 };

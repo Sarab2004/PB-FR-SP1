@@ -22,22 +22,23 @@
 .navItem {
   padding: 12px 16px;
   border-radius: var(--radius-md);
-  color: var(--gray-700);
-  font-weight: 500;
-  background: transparent;
-  border-right: 3px solid transparent;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  color: var(--gray-800);
+  font-weight: 600;
+  background: rgba(255, 115, 28, 0.08);
+  border: 1px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .navItem:hover {
-  background: rgba(73, 74, 65, 0.08);
+  background: rgba(255, 115, 28, 0.14);
   color: var(--gray-900);
 }
 
 .navItemActive {
-  background: var(--tone-1);
-  color: var(--gray-900);
-  border-right-color: var(--accent-2);
+  background: var(--brand-1);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(255, 115, 28, 0.25);
 }
 
 .contentArea {
@@ -196,12 +197,14 @@
 
   .navItem {
     border-radius: 999px;
-    border-right: none;
-    border-bottom: 3px solid transparent;
+    border: none;
+    background: rgba(255, 115, 28, 0.12);
   }
 
   .navItemActive {
-    border-bottom-color: var(--accent-2);
+    background: var(--brand-1);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(255, 115, 28, 0.25);
   }
 
   .contentArea {

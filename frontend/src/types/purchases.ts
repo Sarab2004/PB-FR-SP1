@@ -1,4 +1,4 @@
-export type PurchaseStatus = "DRAFT" | "SUBMITTED" | "APPROVED" | "REJECTED";
+﻿export type PurchaseStatus = "DRAFT" | "SUBMITTED" | "APPROVED" | "REJECTED";
 
 export type PurchaseItem = {
   sku: string;

@@ -1,7 +1,11 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿import { useCallback, useEffect, useMemo, useState } from "react";
 import { HttpError } from "../../../services/http";
-import { requests } from "../../../services/requests";
-import type { WarehouseRequest, WRequestStatus } from "../../../types/requests";
+import {
+  requests,
+  type ManagerRequestsListParams,
+  type WarehouseRequest,
+  type WRequestStatus,
+} from "../../../services/requests";
 import { RequestDetails } from "../requester/RequestDetails";
 import { formatJalali } from "../../../utils/date";
 import styles from "./WarehouseRequests.module.css";
@@ -25,13 +29,6 @@ const statusOptions: { value: "" | WRequestStatus; label: string }[] = [
   { value: "CONVERTED", label: "تبدیل شده" },
 ];
 
-const statusLabels: Record<WRequestStatus, string> = {
-  SUBMITTED: "ثبت شده",
-  APPROVED: "تأیید شده",
-  REJECTED: "رد شده",
-  CONVERTED: "تبدیل شده",
-};
-
 const priorityLabels: Record<string, string> = {
   HIGH: "زیاد",
   MEDIUM: "متوسط",
@@ -46,9 +43,34 @@ export function WarehouseRequests({ onConverted }: WarehouseRequestsProps) {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [toast, setToast] = useState<ToastState>(null);
 
+  const loadRequests = useCallback(
+    async (currentFilter: "" | WRequestStatus = statusFilter) => {
+      const params: ManagerRequestsListParams = {
+        status: currentFilter || undefined,
+      };
+
+      setLoading(true);
+      try {
+        const data = await requests.listAllForManager(params);
+        setItems(data);
+      } catch (error) {
+        const message =
+          error instanceof HttpError
+            ? error.message
+            : error instanceof Error
+            ? error.message
+            : "بازیابی درخواست‌ها با خطا مواجه شد.";
+        showToast({ type: "error", message });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [statusFilter]
+  );
+
   useEffect(() => {
-    reload();
-  }, []);
+    void loadRequests(statusFilter);
+  }, [statusFilter, loadRequests]);
 
   const filtered = useMemo(() => {
     if (!statusFilter) return items;
@@ -58,25 +80,7 @@ export function WarehouseRequests({ onConverted }: WarehouseRequestsProps) {
   function showToast(next: ToastState) {
     setToast(next);
     if (next) {
-      setTimeout(() => setToast(null), 5000);
-    }
-  }
-
-  async function reload() {
-    setLoading(true);
-    try {
-      const data = await requests.listAllForManager();
-      setItems(data);
-    } catch (error) {
-      const message =
-        error instanceof HttpError
-          ? error.message
-          : error instanceof Error
-          ? error.message
-          : "بازیابی درخواست‌ها با خطا مواجه شد.";
-      showToast({ type: "error", message });
-    } finally {
-      setLoading(false);
+      window.setTimeout(() => setToast(null), 5000);
     }
   }
 
@@ -104,7 +108,7 @@ export function WarehouseRequests({ onConverted }: WarehouseRequestsProps) {
         showToast({ type: "success", message: "درخواست با موفقیت رد شد." });
       } else {
         const response = await requests.convert(id);
-        await reload();
+        await loadRequests(statusFilter);
         const purchaseId = response?.purchase_request_id;
         showToast({
           type: "success",
@@ -139,36 +143,26 @@ export function WarehouseRequests({ onConverted }: WarehouseRequestsProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.controls}>
-        <h2>فرم‌های درخواست کالا</h2>
-        <select
-          className={styles.filter}
-          value={statusFilter}
-          onChange={(event) => setStatusFilter(event.target.value as WRequestStatus | "")}
-        >
-          {statusOptions.map((option) => (
-            <option key={option.value || "all"} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        <div className={styles.headingBlock}>
+          <h2>فرم‌های درخواست کالا</h2>
+          <p>مشاهده و مدیریت درخواست‌های ارسال‌شده توسط درخواست‌کننده‌ها.</p>
+        </div>
+        <div className={styles.filters}>
+          <select
+            className={styles.filterSelect}
+            value={statusFilter}
+            onChange={(event) => setStatusFilter(event.target.value as WRequestStatus | "")}
+          >
+            {statusOptions.map((option) => (
+              <option key={option.value || "all"} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {loading ? (
-        <table className={styles.table}>
-          <tbody>
-            {Array.from({ length: 4 }).map((_, index) => (
-              <tr key={index}>
-                <td colSpan={7} className={styles.skeletonRow} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : filtered.length === 0 ? (
-        <div className={styles.emptyState}>
-          <strong>درخواستی با این فیلتر یافت نشد.</strong>
-          وضعیت را تغییر دهید یا دوباره تلاش کنید.
-        </div>
-      ) : (
+      <div className={styles.tableWrapper}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -182,59 +176,88 @@ export function WarehouseRequests({ onConverted }: WarehouseRequestsProps) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((item) => {
-              const statusClass = styles[`status${item.status}` as keyof typeof styles] ?? "";
-              const isSubmitted = item.status === "SUBMITTED";
-              return (
-                <tr key={item.id}>
-                  <td>{item.title}</td>
-                  <td>{priorityLabels[item.priority ?? ""] ?? item.priority ?? "-"}</td>
-                  <td>{item.usage_location || "-"}</td>
-                  <td className={styles.userCell}>{item.requester_id.slice(0, 8)}...</td>
-                  <td>
-                    <span className={`${styles.badge} ${statusClass}`.trim()}>{statusLabels[item.status]}</span>
-                  </td>
-                  <td>{formatJalali(item.created_at)}</td>
-                  <td>                    <div className={styles.actionGroup}>
-                      <button type="button" className="btn-tertiary" onClick={() => setSelected(item)}>
-                        مشاهده
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-outline"
-                        disabled={!isSubmitted || actionLoading !== null}
-                        onClick={() => handleAction(item.id, "approve")}
-                      >
-                        {actionLoading === `${item.id}-approve` ? <span className={styles.spinner} /> : "تأیید"}
-                      </button>
-                      <button
-                        type="button"
-                        className={`btn-outline ${styles.dangerButton}`.trim()}
-                        disabled={!isSubmitted || actionLoading !== null}
-                        onClick={() => handleAction(item.id, "reject")}
-                      >
-                        {actionLoading === `${item.id}-reject` ? <span className={styles.spinner} /> : "رد"}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-brand"
-                        disabled={actionLoading !== null}
-                        onClick={() => handleAction(item.id, "convert")}
-                      >
-                        {actionLoading === `${item.id}-convert` ? (
-                          <span className={styles.spinner} />
-                        ) : (
-                          "تبدیل به خرید"
-                        )}
-                      </button>
-                    </div>
-                  </td>
+            {loading &&
+              Array.from({ length: 4 }).map((_, index) => (
+                <tr key={`skeleton-${index}`}>
+                  <td colSpan={7} className={styles.skeletonRow} />
                 </tr>
-              );
-            })}
+              ))}
+
+            {!loading && filtered.length === 0 && (
+              <tr>
+                <td colSpan={7}>
+                  <div className={styles.emptyState}>
+                    <h3>درخواستی برای نمایش وجود ندارد</h3>
+                    <p>فیلتر وضعیت را تغییر دهید یا منتظر ثبت درخواست‌های جدید بمانید.</p>
+                  </div>
+                </td>
+              </tr>
+            )}
+
+            {!loading &&
+              filtered.map((item) => {
+                const statusClass = styles[`status${item.status}` as keyof typeof styles] ?? "";
+                const isSubmitted = item.status === "SUBMITTED";
+
+                return (
+                  <tr key={item.id}>
+                    <td>
+                      <div className={styles.titleCell}>
+                        <span>{item.title}</span>
+                      </div>
+                    </td>
+                    <td>{priorityLabels[item.priority ?? ""] ?? item.priority ?? "-"}</td>
+                    <td>{item.usage_location || "-"}</td>
+                    <td className={styles.userCell}>{item.requester_id.slice(0, 8)}...</td>
+                    <td>
+                      <span className={`${styles.badge} ${statusClass}`.trim()}>{statusLabel(item.status)}</span>
+                    </td>
+                    <td>{formatJalali(item.created_at)}</td>
+                    <td>
+                      <div className={styles.actionGroup}>
+                        <button
+                          type="button"
+                          className="btn-tertiary"
+                          onClick={() => setSelected(item)}
+                        >
+                          مشاهده
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-outline"
+                          disabled={!isSubmitted || actionLoading !== null}
+                          onClick={() => handleAction(item.id, "approve")}
+                        >
+                          {actionLoading === `${item.id}-approve` ? <span className={styles.spinner} /> : "تأیید"}
+                        </button>
+                        <button
+                          type="button"
+                          className={`btn-outline ${styles.dangerButton}`.trim()}
+                          disabled={!isSubmitted || actionLoading !== null}
+                          onClick={() => handleAction(item.id, "reject")}
+                        >
+                          {actionLoading === `${item.id}-reject` ? <span className={styles.spinner} /> : "رد"}
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-brand"
+                          disabled={actionLoading !== null}
+                          onClick={() => handleAction(item.id, "convert")}
+                        >
+                          {actionLoading === `${item.id}-convert` ? (
+                            <span className={styles.spinner} />
+                          ) : (
+                            "تبدیل به خرید"
+                          )}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
-      )}
+      </div>
 
       <RequestDetails
         open={Boolean(selected)}
@@ -256,4 +279,14 @@ export function WarehouseRequests({ onConverted }: WarehouseRequestsProps) {
       )}
     </div>
   );
+}
+
+function statusLabel(status: WRequestStatus) {
+  const labels: Record<WRequestStatus, string> = {
+    SUBMITTED: "ثبت شده",
+    APPROVED: "تأیید شده",
+    REJECTED: "رد شده",
+    CONVERTED: "تبدیل شده",
+  };
+  return labels[status] ?? status;
 }

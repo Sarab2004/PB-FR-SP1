@@ -6,13 +6,17 @@
 
 .logoImage {
   display: block;
-  width: clamp(96px, 22vw, 120px);
+  width: clamp(96px, 20vw, 132px);
+  max-width: 132px;
+  max-height: 44px;
   height: auto;
+  object-fit: contain;
 }
 
 @media (min-width: 1024px) {
   .logoImage {
-    width: 120px;
+    width: 132px;
+    max-width: 132px;
   }
 }
 

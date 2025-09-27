@@ -8,12 +8,12 @@ type LogoProps = {
 
 export function Logo({ to = "/", className }: LogoProps) {
   return (
-    <Link to={to} className={`${styles.logoLink} ${className ?? ""}`.trim()} aria-label="پرچم‌بار">
+    <Link to={to} className={`${styles.logoLink} ${className ?? ""}`.trim()} aria-label="پرچمبر">
       <img
-        src="/brand/logo.png"
-        alt="پرچم‌بار"
-        width={143}
-        height={60}
+        src="/brand/perchambar_logo.png"
+        alt="پرچمبر"
+        width={132}
+        height={44}
         loading="eager"
         decoding="async"
         className={styles.logoImage}

@@ -1,4 +1,4 @@
-export type ItemRow = {
+﻿export type ItemRow = {
   sku: string;
   name: string;
   qty: number;
